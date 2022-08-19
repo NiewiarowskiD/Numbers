@@ -1,0 +1,16 @@
+.container{
+    width: 500px;
+    height: 500px;
+    display: flex;
+
+}
+
+li{
+    text-decoration: none;
+
+}
+
+ul{
+    text-decoration: none;
+    list-style: none;
+}
