@@ -10,7 +10,7 @@ let sum = 0;
 
 function new_number() {
 
-    for(let i=0;i<10;i++){
+    for(let i=0;i<5;i++){
 
         number_1 = (Math.floor(Math.random() * 100 + 1));
         number_2 = (Math.floor(Math.random() * 100 + 1));
@@ -32,7 +32,7 @@ function new_number() {
         } else {
             odd_numbers.push(number_2)
         }
-        
+
         if (even_numbers[i] === undefined){
             even_numbers[i]=("-");
             sum = odd_numbers[i];
@@ -46,8 +46,8 @@ function new_number() {
         console.log("SUMA",sum);
 
 
-
         sorted_numbers.push(number_1);
+        sorted_numbers.push(number_2);
 
 
         const li_add_even = document.createElement('li');
