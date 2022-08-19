@@ -10,13 +10,13 @@ let sum = 0;
 
 function new_number() {
 
-
-
-
     for(let i=0;i<10;i++){
 
         number_1 = (Math.floor(Math.random() * 100 + 1));
         number_2 = (Math.floor(Math.random() * 100 + 1));
+
+
+        console.log(number_1);
 
 
         if (number_1 % 2 === 0) {
@@ -25,22 +25,30 @@ function new_number() {
             odd_numbers.push(number_1)
         }
 
+
+
         if (number_2 % 2 === 0) {
             even_numbers.push(number_2)
         } else {
             odd_numbers.push(number_2)
         }
+        
+        if (even_numbers[i] === undefined){
+            even_numbers[i]=("-");
+            sum = odd_numbers[i];
+        } else if(odd_numbers[i] === undefined){
+            odd_numbers[i]=("-");
+            sum = even_numbers[i];
+        } else sum = even_numbers[i] + odd_numbers[i];
 
-        if(even_numbers[i] === undefined) {
-            even_numbers.push(0);
-        } else if (odd_numbers[i] === undefined){
-            odd_numbers.push(0);
-        }
+        console.log("NIEPARZYSTA",even_numbers[i]);
+        console.log("PARZYSTA",odd_numbers[i]);
+        console.log("SUMA",sum);
 
-        sum = even_numbers[i] + odd_numbers[i];
+
 
         sorted_numbers.push(number_1);
-        sorted_numbers.push(number_2);
+
 
         const li_add_even = document.createElement('li');
         const li_add_odd = document.createElement('li');
@@ -73,7 +81,7 @@ function new_number() {
 
 
 
-//new_number();
+
 
 
 
