@@ -1,90 +1,104 @@
+const evenNumbersListContainer = document.querySelector('#even_numbers');
+const oddNumbersListContainer = document.querySelector('#odd_numbers');
+const sumListContainer = document.querySelector('#sum');
+const sortedListContainer = document.querySelector('#sorted_numbers');
 
-document.querySelector('#start_numbers').addEventListener('click', new_number);
+const allNumbers = [];
+const evenNumbers= [];
+const oddNumbers= [];
+const sumerizedNumbers = [];
+const sortedNumbers= [];
 
-let number_1,number_2;
-let sorted_numbers=[];
-let even_numbers=[];
-let odd_numbers=[];
-let sum = 0;
-
-
-function new_number() {
-
-    for(let i=0;i<5;i++){
-
-        number_1 = (Math.floor(Math.random() * 100 + 1));
-        number_2 = (Math.floor(Math.random() * 100 + 1));
-
-
-        console.log(number_1);
-
-
-        if (number_1 % 2 === 0) {
-            even_numbers.push(number_1)
-        } else {
-            odd_numbers.push(number_1)
-        }
+const runGame = () => {
+    clearGame();
+    drawNumbers();
+    assignNumbers();
+    sumUpNumbers();
+    sortingNumbers();
+    renderView();
+};
 
 
-
-        if (number_2 % 2 === 0) {
-            even_numbers.push(number_2)
-        } else {
-            odd_numbers.push(number_2)
-        }
-
-        if (even_numbers[i] === undefined){
-            even_numbers[i]=("-");
-            sum = odd_numbers[i];
-        } else if(odd_numbers[i] === undefined){
-            odd_numbers[i]=("-");
-            sum = even_numbers[i];
-        } else sum = even_numbers[i] + odd_numbers[i];
-
-        console.log("NIEPARZYSTA",even_numbers[i]);
-        console.log("PARZYSTA",odd_numbers[i]);
-        console.log("SUMA",sum);
-
-
-        sorted_numbers.push(number_1);
-        sorted_numbers.push(number_2);
-
-
-        const li_add_even = document.createElement('li');
-        const li_add_odd = document.createElement('li');
-        const li_add_sum = document.createElement('li');
-
-        li_add_even.innerText = even_numbers[i];
-        document.querySelector('#even_numbers').appendChild(li_add_even);
-        li_add_odd.innerText = odd_numbers[i];
-        document.querySelector('#odd_numbers').appendChild(li_add_odd);
-        li_add_sum.innerText = sum;
-        document.querySelector('#sum').appendChild(li_add_sum);
-
-
+const drawNumbers = () => {
+    for(let i=0; i<20; i++){
+        allNumbers.push(Math.ceil(Math.random() * 100));
+        sortedNumbers.push(allNumbers[i]);
     }
-
 
     function sortingNum(a,b){
         return a - b;
     }
-
-    sorted_numbers.sort(sortingNum);
-    for(let i=0;i<20;i++) {
-        const li_add_sorted = document.createElement('li');
-        li_add_sorted.innerText = sorted_numbers[i];
-        document.querySelector('#sorted_numbers').appendChild(li_add_sorted);
-
-    }
+    sortedNumbers.sort(sortingNum);
 
 }
 
+const assignNumbers = () => {
+    allNumbers.forEach(num => assignNumber(num))
+}
+
+const assignNumber = (num) => {
+    if (isEven(num)) {
+        evenNumbers.push(num);
+    } else {
+        oddNumbers.push(num);
+    }
+}
+
+const sumUpNumbers = () => {
+    const lengthierArray = evenNumbers.length >= oddNumbers.length ? evenNumbers : oddNumbers;
+    lengthierArray.forEach((num, index) => {
+        sumerizedNumbers.push(getSumOfTwoColumns(index));
+    });
+}
+
+
+const sortingNumbers = () =>{
 
 
 
 
+}
+
+const renderView = () => {
+    evenNumbers.forEach(evenNumber => appendListItems(evenNumber, evenNumbersListContainer));
+    oddNumbers.forEach(oddNumber => appendListItems(oddNumber, oddNumbersListContainer));
+    sumerizedNumbers.forEach(sumerizedNumber => appendListItems(sumerizedNumber, sumListContainer));
+    sortedNumbers.forEach(sortedNumber => appendListItems(sortedNumber, sortedListContainer));
+
+}
+
+// const appendListItems = (container) => (text) => {
+const appendListItems = (text, container) => {
+    const liElement = document.createElement('li');
+    liElement.innerText = text;
+    container.appendChild(liElement);
+    liElement.classList.add('clean');
+}
+
+const getSumOfTwoColumns = index => {
+    return (evenNumbers[index] ?? 0) + (oddNumbers[index] ?? 0);
+}
+
+
+const clearElement = (ulElement,title) => {
+    ulElement.replaceChildren(title);
+}
+
+const clearGame = () => {
+    clearElement(evenNumbersListContainer, 'PARZYSTE');
+    clearElement(oddNumbersListContainer, 'NIEPARZYSTE');
+    clearElement(sumListContainer, 'SUMA');
+    clearElement(sortedListContainer, 'POSORTOWANE');
+    allNumbers.length = 0;
+    evenNumbers.length = 0;
+    oddNumbers.length = 0;
+    sumerizedNumbers.length = 0;
+    sortedNumbers.length = 0;
+}
+
+
+const isEven = (num) => num % 2 === 0;
 
 
 
-
-
+document.querySelector('#start_numbers').addEventListener('click', runGame);
