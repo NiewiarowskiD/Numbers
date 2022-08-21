@@ -67,7 +67,7 @@ const renderView = () => {
 
 }
 
-// const appendListItems = (container) => (text) => {
+
 const appendListItems = (text, container) => {
     const liElement = document.createElement('li');
     liElement.innerText = text;
